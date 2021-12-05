@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iamin/constants.dart';
+import 'package:iamin/home/service/data.dart';
 import 'package:iamin/home/widgets/payment_categories_card.dart';
 import 'package:iamin/home/widgets/transactions_list.dart';
 
@@ -12,15 +13,28 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _isRefreshing = false;
+  Map<String, dynamic> _paymentData = {};
+  Map<String, dynamic> _transactionsData = {};
 
   Future<void> _refresh() async {
     setState(() {
       _isRefreshing = true;
     });
-    await Future.delayed(const Duration(seconds: 2));
+
+    _paymentData = generatePaymentData();
+    _transactionsData = generateTransactionsData();
+
+    await Future.delayed(const Duration(seconds: 1));
+
     setState(() {
       _isRefreshing = false;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _refresh();
   }
 
   @override
@@ -64,8 +78,9 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.only(left: 20.0),
                         child: SizedBox(
                           height: MediaQuery.of(context).size.height * 0.3,
-                          child: const PaymentCategoriesCard(
-                              colorList: categoriesCardListColors),
+                          child: PaymentCategoriesCard(
+                              colorList: categoriesCardListColors,
+                              paymentData: _paymentData["categories"]),
                         ),
                       ),
                       Padding(
@@ -88,9 +103,11 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 20.0),
-                        child: TransactionsList(),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20.0),
+                        child: TransactionsList(
+                          transactionData: _transactionsData["transactions"],
+                        ),
                       ),
                     ],
                   ),
