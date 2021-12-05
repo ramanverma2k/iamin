@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iamin/constants.dart';
 import 'package:iamin/home/widgets/payment_categories_card.dart';
 import 'package:iamin/home/widgets/transactions_list.dart';
 
@@ -46,7 +47,8 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(left: 20.0),
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height * 0.3,
-                  child: const PaymentCategoriesCard(),
+                  child: const PaymentCategoriesCard(
+                      colorList: categoriesCardListColors),
                 ),
               ),
               Padding(
