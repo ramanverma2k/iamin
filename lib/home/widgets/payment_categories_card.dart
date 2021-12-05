@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class PaymentCategoriesCard extends StatelessWidget {
-  const PaymentCategoriesCard({Key? key, required this.colorList})
+  const PaymentCategoriesCard(
+      {Key? key, required this.colorList, required this.paymentData})
       : super(key: key);
 
   final List<List<Color>> colorList;
+  final List<dynamic>? paymentData;
 
   @override
   Widget build(BuildContext context) {
@@ -28,20 +30,24 @@ class PaymentCategoriesCard extends StatelessWidget {
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text('Mobile Home Dealers',
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                  Text('Last Payment 17 May',
-                      style: TextStyle(color: Color(0xFF8e9eb6), fontSize: 12)),
+                children: [
+                  Text(paymentData![index]["name"],
+                      style:
+                          const TextStyle(color: Colors.white, fontSize: 18)),
+                  Text('Last Payment ${paymentData![index]["lastPayment"]}',
+                      style: const TextStyle(
+                          color: Color(0xFF8e9eb6), fontSize: 12)),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text('\u{20b9}4,498',
-                      style: TextStyle(color: Colors.white, fontSize: 20)),
-                  Text('85%',
-                      style: TextStyle(color: Colors.white, fontSize: 20)),
+                children: [
+                  Text('\u{20b9}${paymentData![index]["spentAmount"]}',
+                      style:
+                          const TextStyle(color: Colors.white, fontSize: 20)),
+                  Text('${paymentData![index]["percentage"]}%',
+                      style:
+                          const TextStyle(color: Colors.white, fontSize: 20)),
                 ],
               )
             ],
@@ -51,7 +57,7 @@ class PaymentCategoriesCard extends StatelessWidget {
       separatorBuilder: (context, index) {
         return SizedBox(width: MediaQuery.of(context).size.width * 0.05);
       },
-      itemCount: 3,
+      itemCount: 5,
     );
   }
 }
