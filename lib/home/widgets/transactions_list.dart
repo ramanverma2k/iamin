@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class TransactionsList extends StatelessWidget {
-  const TransactionsList({Key? key}) : super(key: key);
+  const TransactionsList({Key? key, required this.transactionData})
+      : super(key: key);
+
+  final List<dynamic>? transactionData;
 
   @override
   Widget build(BuildContext context) {
@@ -33,18 +36,18 @@ class TransactionsList extends StatelessWidget {
                   const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
-                        'WWWOCABSCOM',
-                        style: TextStyle(
+                        transactionData![index]['name'],
+                        style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                       ),
                       Text(
-                        '26 May 2021',
-                        style: TextStyle(
+                        transactionData![index]['date'],
+                        style: const TextStyle(
                           fontSize: 12,
                           color: Color(0xFF8e9eb6),
                         ),
@@ -54,18 +57,19 @@ class TransactionsList extends StatelessWidget {
                 ],
               ),
               Column(
-                children: const [
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
                   Text(
-                    '- \u{20b9}449',
-                    style: TextStyle(
+                    '- \u{20b9}${transactionData![index]['spentAmount']}',
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                       color: Colors.red,
                     ),
                   ),
                   Text(
-                    '6:40pm',
-                    style: TextStyle(
+                    transactionData![index]['time'],
+                    style: const TextStyle(
                       fontSize: 12,
                       color: Color(0xFF8e9eb6),
                     ),
