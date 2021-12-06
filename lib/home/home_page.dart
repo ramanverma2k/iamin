@@ -20,11 +20,10 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _isRefreshing = true;
     });
+    await Future.delayed(const Duration(milliseconds: 500));
 
     _paymentData = generatePaymentData();
     _transactionsData = generateTransactionsData();
-
-    await Future.delayed(const Duration(seconds: 1));
 
     setState(() {
       _isRefreshing = false;
@@ -42,15 +41,15 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
-          child: _isRefreshing
-              ? Container()
-              : SingleChildScrollView(
+          child: !_isRefreshing
+              ? SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: ElevatedButton(
+                          key: const Key('elevatedButton'),
                           onPressed: () {},
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,6 +93,7 @@ class _HomePageState extends State<HomePage> {
                               style: TextStyle(color: Color(0xFF8e9eb6)),
                             ),
                             TextButton(
+                              key: const Key('seeAllTransactions'),
                               onPressed: () {},
                               child: const Text(
                                 'Show All\t\t >',
@@ -111,7 +111,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                ),
+                )
+              : Container(key: const Key('loading')),
           onRefresh: _refresh,
           backgroundColor: const Color(0xFF1b1e31),
           color: Colors.white,
