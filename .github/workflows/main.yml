@@ -45,8 +45,7 @@ jobs:
           files: Payload.ipa
           name: iamin_dashboard.ipa
           
-    - run: flutter build apk --release
-    - name: Create Android Release          
+    - run: flutter build apk --release   
     - name: Upload Android Release Asset
       id: upload-android-release-asset
       uses: softprops/action-gh-release@v1
