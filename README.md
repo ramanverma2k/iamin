@@ -1,5 +1,7 @@
 # iamin
 
+[![codecov](https://codecov.io/gh/ramanverma2k/iamin/branch/main/graph/badge.svg?token=4URX31NQ1A)](https://codecov.io/gh/ramanverma2k/iamin)
+
 A new Flutter project.
 
 ## Getting Started
