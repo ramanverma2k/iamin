@@ -30,3 +30,17 @@ jobs:
     - uses: codecov/codecov-action@v2
       with:
         token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+        
+    - run: flutter build ios --release --no-codesign
+    - name: Create IPA
+      run: |
+          mkdir Payload && mv build/ios/Release-iphoneos/Runner.app Payload/.
+          zip -r Payload.zip Payload
+          mv Payload.zip Payload.ipa
+          rm -rf Payload
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: softprops/action-gh-release@v1
+      with:
+          files: Payload.ipa
+          name: iamin_dashboard.ipa
