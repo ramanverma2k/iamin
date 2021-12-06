@@ -38,9 +38,18 @@ jobs:
           zip -r Payload.zip Payload
           mv Payload.zip Payload.ipa
           rm -rf Payload
-    - name: Upload Release Asset
-      id: upload-release-asset
+    - name: Upload IOS Release Asset
+      id: upload-ios-release-asset
       uses: softprops/action-gh-release@v1
       with:
           files: Payload.ipa
           name: iamin_dashboard.ipa
+          
+    - run: flutter build apk --release
+    - name: Create Android Release          
+    - name: Upload Android Release Asset
+      id: upload-android-release-asset
+      uses: softprops/action-gh-release@v1
+      with:
+          files: build/app/outputs/flutter-apk/app-release.apk
+          name: iamin_dashboard.apk
