@@ -38,6 +38,11 @@ Run the app
   <img width="32%" src="Screenshot.png?raw=true">
 </p>
 
+## Demo
+<p align="left">
+  <img width="32%" src="demo.gif?raw=true">
+</p>
+
 ## Given Task
 Recreate the given ui along with animations.
 <p align="left">
